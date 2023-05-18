@@ -7,30 +7,30 @@ Color primaryColor = Color(0xff6C5ECF);
 Color secondaryColor = Color(0xff38ABBE);
 Color alertColor = Color(0xffED6363);
 Color priceColor = Color(0xff2C96F1);
-Color backgroundColor1 = Color(0xff1F1D2B);
-Color backgroundColor2 = Color(0xff2B2937);
+Color backgroundColor1 = Color(0xff748E32);
+Color backgroundColor2 = Color(0xffA8C366);
 Color backgroundColor3 = Color(0xff242231);
 Color primaryTextColor = Color(0xffF1F0F2);
 Color secondaryTextColor = Color(0xff999999);
-Color subtitleColor = Color(0xff504F5E);
+Color subtitleColor = Color(0xffFBFFEB);
 
-TextStyle primaryTextStyle = GoogleFonts.poppins(
+TextStyle primaryTextStyle = GoogleFonts.merienda(
   color: primaryTextColor,
 );
 
-TextStyle secondaryTextStyle = GoogleFonts.poppins(
+TextStyle secondaryTextStyle = GoogleFonts.merienda(
   color: secondaryTextColor,
 );
 
-TextStyle subtitleTextStyle = GoogleFonts.poppins(
+TextStyle subtitleTextStyle = GoogleFonts.merienda(
   color: subtitleColor,
 );
 
-TextStyle priceTextStyle = GoogleFonts.poppins(
+TextStyle priceTextStyle = GoogleFonts.merienda(
   color: priceColor,
 );
 
-TextStyle purpleTextStyle = GoogleFonts.poppins(
+TextStyle purpleTextStyle = GoogleFonts.merienda(
   color: primaryColor,
 );
 

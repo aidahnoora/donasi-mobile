@@ -20,13 +20,6 @@ class SignInPage extends StatelessWidget {
                 fontWeight: semiBold,
               ),
             ),
-            SizedBox(
-              height: 2,
-            ),
-            Text(
-              'Sign In to Continue',
-              style: subtitleTextStyle,
-            ),
           ],
         ),
       );
@@ -38,7 +31,7 @@ class SignInPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Email Address',
+            Text('Email',
             style: primaryTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,
@@ -70,7 +63,7 @@ class SignInPage extends StatelessWidget {
                       child: TextFormField(
                         style: primaryTextStyle,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Email Address',
+                          hintText: 'Masukkan email',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -123,7 +116,7 @@ class SignInPage extends StatelessWidget {
                         style: primaryTextStyle,
                         obscureText: true,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Your Password',
+                          hintText: 'Masukkan password',
                           hintStyle: subtitleTextStyle,
                         ),
                       ),
@@ -168,7 +161,7 @@ class SignInPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Don\'t have an account? ',
+              'Belum punya akun? ',
               style: subtitleTextStyle.copyWith(
                 fontSize: 12,
               ),
@@ -178,7 +171,7 @@ class SignInPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/sign-up');
               },
               child: Text(
-                'Sign Up',
+                'Register',
                 style: purpleTextStyle.copyWith(
                   fontSize: 12,
                   fontWeight: medium,
