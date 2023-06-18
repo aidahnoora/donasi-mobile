@@ -1,206 +1,125 @@
-import 'package:donasi/theme.dart';
+import 'package:another_flushbar/flushbar.dart';
+import 'package:donasi/providers/auth_provider.dart';
+import 'package:donasi/utility/validator.dart';
+import 'package:donasi/utility/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+
+  TextEditingController emailController = TextEditingController(text: '');
+
+  TextEditingController passwordController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
 
-    Widget header() {
-      return Container(
-        margin: EdgeInsets.only(top: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Login',
-              style: primaryTextStyle.copyWith(
-                fontSize: 24,
-                fontWeight: semiBold,
-              ),
-            ),
-          ],
-        ),
-      );
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    handleSignIn() async {
+      if (await authProvider.login(
+        email: emailController.text,
+        password: passwordController.text,
+      )) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        Flushbar(
+          title: 'Gagal login!',
+          message: 'Periksa kembali email dan password Anda.',
+          duration: Duration(seconds: 10),
+        ).show(context);
+      }
     }
 
-    Widget emailInput(){
-      return Container(
-        margin: EdgeInsets.only(top: 70),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Email',
-            style: primaryTextStyle.copyWith(
-              fontSize: 16,
-              fontWeight: medium,
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              decoration: BoxDecoration(
-                color: backgroundColor2,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/icon_email.png',
-                      width: 17,
-                    ),
-                    SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        style: primaryTextStyle,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Masukkan email',
-                          hintStyle: subtitleTextStyle,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    
-    Widget passwordInput(){
-      return Container(
-        margin: EdgeInsets.only(top: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Password',
-            style: primaryTextStyle.copyWith(
-              fontSize: 16,
-              fontWeight: medium,
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              decoration: BoxDecoration(
-                color: backgroundColor2,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/icon_password.png',
-                      width: 17,
-                    ),
-                    SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        style: primaryTextStyle,
-                        obscureText: true,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Masukkan password',
-                          hintStyle: subtitleTextStyle,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget signInButton() {
-      return Container(
-        height: 50,
-        width: double.infinity,
-        margin: EdgeInsets.only(top: 30),
-        child: TextButton(
-          onPressed: () {},
-          style: TextButton.styleFrom(
-            backgroundColor: primaryColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
+    final forgotLabel = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget> [
+        FlatButton(
+          padding: EdgeInsets.only(left: 0),
           child: Text(
-            'Sign In',
-            style: primaryTextStyle.copyWith(
-              fontSize: 16,
-              fontWeight: medium,
+            'Register',
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
             ),
           ),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/register');
+          },
         ),
-      );
-    }
-
-    Widget footer() {
-      return Container(
-        margin: EdgeInsets.only(bottom: 30),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Belum punya akun? ',
-              style: subtitleTextStyle.copyWith(
-                fontSize: 12,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/sign-up');
-              },
-              child: Text(
-                'Register',
-                style: purpleTextStyle.copyWith(
-                  fontSize: 12,
-                  fontWeight: medium,
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
+      ],
+    );
 
     return Scaffold(
-      backgroundColor: backgroundColor1,
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
+      appBar: AppBar(
+        title: Text(
+          'Login',
+        ),
+        backgroundColor: Colors.green,
+      ),
+      body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.symmetric(
-            horizontal: defaultMargin,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              header(),
-              emailInput(),
-              passwordInput(),
-              signInButton(),
-              Spacer(),
-              footer(),
-            ],
+          padding: EdgeInsets.all(40),
+          child: Form(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Email',
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  autofocus: false,
+                  validator: validateEmail,
+                  controller: emailController,
+                  decoration: buildInputDecoration(
+                    'Masukkan Email',
+                    Icons.email
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Password',
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  autofocus: false,
+                  obscureText: true,
+                  validator: (value)=> value == null ? "Masukkan password yang benar" : null,
+                  controller: passwordController,
+                  decoration: buildInputDecoration(
+                    'Masukkan Password',
+                    Icons.lock
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                longButtons(
+                  'Login',
+                  handleSignIn
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                forgotLabel
+              ],
+            ),
           ),
         ),
       ),
