@@ -64,12 +64,18 @@ class _SignInPageState extends State<SignInPage> {
         backgroundColor: Colors.green,
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: 
+        Container(
           padding: EdgeInsets.all(40),
           child: Form(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Image.asset(
+                  'assets/logo1.png', // Lokasi gambar logo di dalam direktori aset (assets)
+                  width: 150, // Lebar gambar
+                  height: 150, // Tinggi gambar
+                ),
                 SizedBox(
                   height: 15,
                 ),
